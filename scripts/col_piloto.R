@@ -8,14 +8,20 @@ library(readr)
 # Serão 8 colunas: c(id_aluno, aluno, professor, ensino, turma, prova, disciplina, nota).
 # Todas com 22200 linhas.
 
+# ler csv de lista de nomes
+Lista_de_nomes <- read_csv2("dados/Lista de nomes.csv")
+
 # Como irei precisar dos alunos de 2014 (555), e os novos de 2015 (185), 2016 (185) e 2017 (185).
 # Fiz uma df já com todos os alunos e suas respectivas ids.
 id_aluno <- rep(c(1:2000), each = 40)
-aluno <- rep(sample(Lista_de_nomes$NOME, size = 2000, replace = FALSE), each = 40)
+#id_aluno <- seq(1, 903082, by=1628) # Sequência de números para filtrar da tabela Lista.de.nomes.
+aluno <- (Lista_de_nomes[id_aluno, ]) 
+
+#aluno <- rep(sample(Lista_de_nomes$NOME, size = 2000, replace = FALSE), each = 40)
 df_todos_alunos_ids <- data.frame(id_aluno, aluno)
 
 # Criando as duas primeiras colunas. 
-df_id_aluno <-  df_todos_alunos_ids [1:22200, ]
+df_id_aluno <-  df_todos_alunos_ids[1:22200, ]
 
 #  Agora fazendo a coluna professor.
 prof <- c("Prof. AARON", "Prof. AARON", "Prof. JONATHAN", "Prof.EDWARDS", "Prof. ALEXANDRE LEAO", 
@@ -65,11 +71,21 @@ OOOO <- sample(O, 40, replace = TRUE)/10
 RRRR <- sample(R, 40, replace = TRUE)/10
 FFFF <- sample(F, 40, replace = TRUE)/10
 IIII <- sample(I, 40, replace = TRUE)/10
-EEOO <- c(sample(E, replace = T)/10, sample(O, 16, replace = T)/10)
-OOEE <- c(sample(O, 24, replace = T)/10, sample(E, 16, replace = T)/10)
-EERR <- c(sample(E, 24, replace = T)/10, sample(R, 16, replace = T)/10)
-RREE <- c(sample(R, 12, replace = T)/10, sample(R, 12, replace = T)/10, sample(E, 8, replace = T)/10, sample(E, 8, replace = T)/10)
-OOOR <- c(sample(O, 12, replace = T)/10, sample(O, 12, replace = T)/10, sample(O, 8, replace = T)/10, sample(R, 8, replace = T)/10)
+EEOO <- c(sample(E, replace = T)/10,
+          sample(O, 16, replace = T)/10)
+OOEE <- c(sample(O, 24, replace = T)/10,
+          sample(E, 16, replace = T)/10)
+EERR <- c(sample(E, 24, replace = T)/10,
+          sample(R, 16, replace = T)/10)
+RREE <- c(sample(R, 12, replace = T)/10,
+          sample(R, 12, replace = T)/10,
+          sample(E, 8, replace = T)/10,
+          sample(E, 8, replace = T)/10)
+OOOR <- c(sample(O, 12, replace = T)/10,
+          sample(O, 12, replace = T)/10,
+          sample(O, 8, replace = T)/10,
+          sample(R, 8, replace = T)/10)
+
 RROO <- c(sample(R, 12, replace = T)/10, sample(R, 12, replace = T)/10, sample(O, 8, replace = T)/10, sample(O, 8, replace = T)/10)
 OORR <- c(sample(O, 12, replace = T)/10, sample(O, 12, replace = T)/10, sample(R, 8, replace = T)/10, sample(R, 8, replace = T)/10)
 OORO <- c(sample(O, 12, replace = T)/10, sample(O, 12, replace = T)/10, sample(R, 8, replace = T)/10, sample(O, 8, replace = T)/10)
@@ -101,8 +117,8 @@ nota <- rep_len(c(EEEE, OOOO, RRRR, FFFF, IIII, EEOO, OOEE, EERR, RREE, OOOR,
 zzzz <- data.frame(professor, ensino, turma, disciplina, prova, nota)
 col_piloto_2014 <- bind_cols(df_id_aluno, zzzz)
 
-write.csv(col_piloto_2014, file = "col_piloto_2014.csv")
-write.csv2(col_piloto_2014, file = "col_piloto_2014.csv")
+write.csv2(col_piloto_2014, file = "dados/col_piloto_2014.csv",
+           row.names = FALSE)
 # Agora fazendo a turma de 2015. os alunos do 1º foram para o 2º e estas para o 3º.
 # Assim é necessário mais 185 nomes de alunos, que ficarão no 1º ano.
 

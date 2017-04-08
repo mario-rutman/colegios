@@ -187,8 +187,11 @@ ggplot(turma_esp, aes(x = prova, y = nota)) +
 posn.j <- position_jitter(0.3)
 ggplot(turma_esp, aes(x = prova, y = nota)) + geom_point(position = posn.j,
                                                          size = 5, alpha = 0.5)
+ggplot(turma_esp, aes(x = prova, y = nota)) + geom_point(position = posn.j,
+                                                         size = 8, alpha = 0.5)
 
-# Gráfico cêra de abalha, beeswarm.
+
+# Gráfico cêra de abelha, beeswarm.
 # Bee Swarm Tutorial
 # Packages used: beeswarm by Aron Charles Eklund
 # install.packages("beeswarm")
